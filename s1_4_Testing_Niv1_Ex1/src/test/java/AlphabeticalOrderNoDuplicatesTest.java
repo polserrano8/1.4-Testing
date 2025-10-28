@@ -3,7 +3,10 @@ import ExerciseResolution.Model.Library;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-public class TestClass {
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class AlphabeticalOrderNoDuplicatesTest {
     private Library library;
     @BeforeEach
     public void init(){
@@ -23,25 +26,32 @@ public class TestClass {
     }
     @Test
     public void whenObjectInsertedEnsureListSizeCorrect(){
-         Assertions.assertEquals(5,library.returnList().size());
+         assertEquals(5,library.returnList().size());
     }
     @Test
     public void whenObjectInsertedEnsurePositionListCorrect(){
         library.bookInPosition(new Book("Don Quijote",4),3);
-        Assertions.assertEquals(3,library.bookIn("Don Quijote",3));
+        assertEquals(3,library.bookIn("Don Quijote",3));
     }
     @Test
-    public void noDuplicatedTitle(){};
+    public void givenDuplicatedBook_whenAdded_NoDuplicatedAccepted(){
+        Book actualBook = new Book("Factfulness", "A book that shows the real world and it's better than we think" ,15);
+
+        library.addBook(actualBook);
+
+        assertEquals(6, library.returnList().size() , "We insert a book that we already have in the library and the number of books does not change.");
+
+    };
 
     @Test
     public void getTitleCorrectly(){
-        Assertions.assertEquals("SuperMan & Voldemort",this.library.returnList().get(0).getTitle());
+        assertEquals("SuperMan & Voldemort",this.library.returnList().get(0).getTitle());
     };
     @Test
     public void ensureLessSizeArray(){
         int x = library.returnList().size();
         library.eraseBook("SuperMan & Voldemort");
-        Assertions.assertEquals(x-1,library.returnList().size());
+        assertEquals(x-1,library.returnList().size());
     }
     @Test
     public void ensureABCOrdered(){
