@@ -1,9 +1,6 @@
 package ExerciseResolution.Model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Library {
     List<Book> bookCollection = new ArrayList<>();
@@ -11,7 +8,10 @@ public class Library {
     public Library(){}
 
     public void addBook(Book... books){
+        if(!bookCollection.contains(books)){
         this.bookCollection.addAll(Arrays.asList(books));
+        }
+        sortBooks();
     }
     public List<Book> returnList(){
         return Collections.unmodifiableList(this.bookCollection);
@@ -39,6 +39,9 @@ public class Library {
                 this.bookCollection.remove(x);
             }
         }
+    }
+    private void sortBooks() {
+        bookCollection.sort(Comparator.comparing(Book::getTitle));
     }
 
 }

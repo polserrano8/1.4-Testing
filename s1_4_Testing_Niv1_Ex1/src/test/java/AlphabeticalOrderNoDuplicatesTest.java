@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AlphabeticalOrderNoDuplicatesTest {
@@ -30,8 +31,8 @@ public class AlphabeticalOrderNoDuplicatesTest {
     }
     @Test
     public void whenObjectInsertedEnsurePositionListCorrect(){
-        library.bookInPosition(new Book("Don Quijote",4),3);
-        assertEquals(3,library.bookIn("Don Quijote",3));
+        library.bookInPosition(new Book("Don Quijote",4),1);
+        assertEquals(1,library.bookIn("Don Quijote",1));
     }
     @Test
     public void givenDuplicatedBook_whenAdded_NoDuplicatedAccepted(){
@@ -45,7 +46,7 @@ public class AlphabeticalOrderNoDuplicatesTest {
 
     @Test
     public void getTitleCorrectly(){
-        assertEquals("SuperMan & Voldemort",this.library.returnList().get(0).getTitle());
+        assertEquals("SuperMan & Voldemort",this.library.returnList().get(2).getTitle());
     };
     @Test
     public void ensureLessSizeArray(){
@@ -54,8 +55,14 @@ public class AlphabeticalOrderNoDuplicatesTest {
         assertEquals(x-1,library.returnList().size());
     }
     @Test
-    public void ensureABCOrdered(){
-        library.returnList();
+    public void whenObjectInsertedEnsureABCOrdered(){
+        assertDoesNotThrow(() -> {
+            assertEquals("Echo of Tomorrow", library.titleOf(0));
+            assertEquals("Neural Heist: Memories for Sale", library.titleOf(1));
+            assertEquals("SuperMan & Voldemort", library.titleOf(2));
+            assertEquals("The Cosmic Gardener", library.titleOf(3));
+            assertEquals("The Time Loop Mystery", library.titleOf(4));
+        });
 
     }
 
